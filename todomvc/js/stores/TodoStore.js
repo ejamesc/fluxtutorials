@@ -5,6 +5,9 @@ var assign = require('object-assign');
 
 var CHANGE_EVENT = 'change';
 
+// This lives inside the closure of the module, but outside of the class, so it
+// is effectively private. It can only be accessed through functions provided
+// by the TodoStore object, below.
 var _todos = {};
 
 /**
