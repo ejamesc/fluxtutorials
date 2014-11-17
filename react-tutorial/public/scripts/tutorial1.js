@@ -21,9 +21,13 @@ var CommentList = React.createClass({
   }
 });
 
+// Use Showdown to transform markdown
+var converter = new Showdown.converter();
+
 // Props are data passed from parent to children components.
 var Comment = React.createClass({
   render: function() {
+    var rawMarkup = converter.makeHtml(this.props.children.toString());
     return (
       <div className="comment">
         <h2 className="commentAuthor">
@@ -31,7 +35,8 @@ var Comment = React.createClass({
           {this.props.author}
         </h2>
           {/* Any nested elements */}
-          {this.props.children} 
+          {/* converter.makeHtml(this.props.children.toString()) */ } 
+          <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
       </div>
       );
   }
