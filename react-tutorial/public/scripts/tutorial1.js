@@ -8,8 +8,7 @@ var CommentBox = React.createClass({
   getInitialState: function() {
     return {data: []};
   },
-  // Executes automatically hen a componenet is rendered
-  componentDidMount: function() {
+  loadCommentsFromServer: function() {
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -22,11 +21,16 @@ var CommentBox = React.createClass({
       }.bind(this)
     });
   },
+  // Executes automatically hen a componenet is rendered
+  componentDidMount: function() {
+    this.loadCommentsFromServer();
+    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+  },
   render: function() {
     return (
       <div className="commentBox">
         <h1>Comments</h1>
-        <CommentList data={this.state.data} />
+        <CommentList data={this.state.data} pollInterval={2000} />
         <CommentForm />
       </div>
       );
@@ -75,7 +79,6 @@ var CommentForm = React.createClass({
   render: function() {
     return(
       <div className="commentForm">
-        Hello, world! I am a CommentForm.
       </div>
       );
   }
