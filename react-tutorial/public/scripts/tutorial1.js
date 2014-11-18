@@ -4,11 +4,29 @@ var data = [
 ];
 
 var CommentBox = React.createClass({
+  // Executes exactly once in the lifecycle of the component
+  getInitialState: function() {
+    return {data: []};
+  },
+  // Executes automatically hen a componenet is rendered
+  componentDidMount: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      success: function(data) {
+        // This re-renders the component.
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   render: function() {
     return (
       <div className="commentBox">
         <h1>Comments</h1>
-        <CommentList data={this.props.data} />
+        <CommentList data={this.state.data} />
         <CommentForm />
       </div>
       );
@@ -64,5 +82,6 @@ var CommentForm = React.createClass({
 });
 
 React.render(
-    <CommentBox data={data} />,
-    document.getElementById('content'));
+    <CommentBox url="comments.json" />,
+    document.getElementById('content')
+    );
