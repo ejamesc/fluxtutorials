@@ -16,7 +16,7 @@ from SimpleHTTPServer import SimpleHTTPRequestHandler
 
 PUBLIC_PATH = "public"
 
-comments = json.loads(open('_comments.json').read())
+comments = json.loads(open('public/comments.json').read())
 
 def sendJSON(res):
     res.send_response(200)

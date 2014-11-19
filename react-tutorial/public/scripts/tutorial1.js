@@ -24,6 +24,9 @@ var CommentBox = React.createClass({
   // This is a handler which we will bind to the onCommentSubmit event on the
   // comment form
   handleCommentSubmit: function(comment) {
+    var comments = this.state.data;
+    var newComments = comments.concat([comment]);
+    this.setState({data: newComments});
     $.ajax({
       url: this.props.url,
       dataType: 'json',
