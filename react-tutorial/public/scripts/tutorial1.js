@@ -40,7 +40,7 @@ var CommentBox = React.createClass({
       }.bind(this)
     });
   },
-  // Executes automatically when a componenet is rendered
+  // Executes automatically when a component is rendered
   componentDidMount: function() {
     this.loadCommentsFromServer();
     setInterval(this.loadCommentsFromServer, this.props.pollInterval);
